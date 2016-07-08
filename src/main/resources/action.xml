@@ -1,0 +1,8 @@
+<actions>
+    <action name="home" method="show" class="com.kewill.jira.servlet.IssueHomeServlet" type="get">
+    </action>
+    <action name="issue" method="show" class="com.kewill.jira.servlet.IssueShowServlet" type="get">
+    </action>
+    <action name="issue" method="loadAll" class="com.kewill.jira.servlet.IssueShowServlet" type="post">
+    </action>
+</actions>
