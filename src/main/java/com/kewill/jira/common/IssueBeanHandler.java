@@ -9,12 +9,9 @@ import org.xml.sax.helpers.DefaultHandler;
 import javax.naming.directory.Attribute;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Date;
+import java.util.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
 
 /**
  * Created by YanJun on 2016/6/30.
@@ -24,9 +21,12 @@ public class IssueBeanHandler extends DefaultHandler {
 
     List<Issue> issueList = new ArrayList<Issue>();
     List<String> componentList = new ArrayList<String>();
+    List<Map<String,String>> customFieldsList = new ArrayList<Map<String,String>>();
     StringBuilder descriptionValue = new StringBuilder();
     StringBuilder summaryValue = new StringBuilder();
     StringBuilder titleValue = new StringBuilder();
+    String customField = null;
+    String customFieldValue = null;
     String[] stringFieldArr = new String[]{
             "link","project","key","type","status","resolution",
             "assignee","reporter","fixVersion"};
@@ -60,6 +60,8 @@ public class IssueBeanHandler extends DefaultHandler {
             throws SAXException {
         try {
             if (issue != null) {
+
+                Map<String,String> customFiledMap = new HashMap<String, String>();
                 Method[] methodsArr = issue.getClass().getDeclaredMethods();
                 for (Method method : methodsArr) {
                     String methodName = method.getName();
@@ -103,6 +105,16 @@ public class IssueBeanHandler extends DefaultHandler {
                     String componentValue = new String(ch,start,length);
                     componentList.add(componentValue);
                 }
+                if("customfieldname".equals(currentTag)){
+                    customField = new String(ch,start,length);
+                }
+                if("customfieldvalue".equals(currentTag)){
+                    customFieldValue = new String(ch,start,length);
+                    customFiledMap.put(customField,customFieldValue);
+                    customFieldsList.add(customFiledMap);
+                }
+
+
             }
         } catch (IllegalAccessException e) {
             e.printStackTrace();
@@ -136,6 +148,9 @@ public class IssueBeanHandler extends DefaultHandler {
                 issue.setTitle(titleValue.toString());
             }
         }
+        if("customfields".equals(qName)){
+            issue.setCustomFieldList(customFieldsList);
+        }
         currentTag = null;
 
     }
@@ -150,6 +165,7 @@ public class IssueBeanHandler extends DefaultHandler {
         descriptionValue = new StringBuilder();
         summaryValue = new StringBuilder();
         titleValue = new StringBuilder();
+        customFieldsList = new ArrayList<Map<String, String>>();
     }
 
 }

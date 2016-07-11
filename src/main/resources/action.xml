@@ -5,4 +5,6 @@
     </action>
     <action name="issue" method="loadAll" class="com.kewill.jira.servlet.IssueShowServlet" type="post">
     </action>
+    <action name="issue" method="downloadTar" class="com.kewill.jira.servlet.IssueTarDownloadServlet" type="get">
+    </action>
 </actions>

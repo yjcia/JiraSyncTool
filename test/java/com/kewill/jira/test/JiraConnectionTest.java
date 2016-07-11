@@ -7,11 +7,9 @@ import com.kewill.jira.util.JiraSyncUtil;
 import com.kewill.jira.util.PropertyUtil;
 import org.junit.Test;
 
-import java.util.Date;
+import java.util.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.List;
-import java.util.Locale;
 
 /**
  * Created by YanJun on 2016/6/30.
@@ -62,10 +60,25 @@ public class JiraConnectionTest {
         List<Issue> issueList = JiraSyncUtil.analysisIssueXml();
         IIssueDao issueDao = new IssueDaoImpl();
         //Issue issue = issueList.get(0);
+        //System.out.println(issue);
         for(Issue issue:issueList){
             issueDao.insertIssue(issue);
             System.out.println("cloud jira sync --> " + issue.getKeyId() + " " + issue.getTitle());
         }
     }
 
+    @Test
+    public void testCustomFieldList(){
+        HashMap<String,String> customMap = new HashMap<String,String>();
+        customMap.put("Non-Functional","No");
+        customMap.put("Rank","2|i04bvr:");
+        customMap.put("Rank (Obsolete)","9223372036854775807");
+        List<Map<String,String>> customList = new ArrayList<Map<String, String>>();
+        customList.add(customMap);
+        Issue issue = new Issue();
+        issue.setCustomFieldList(customList);
+        String result = JiraSyncUtil.getCustomFieldsStr(issue);
+        System.out.println(result);
+
+    }
 }

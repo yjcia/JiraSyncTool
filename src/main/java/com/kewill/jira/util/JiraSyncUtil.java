@@ -20,8 +20,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by YanJun on 2016/6/30.
@@ -125,7 +124,47 @@ public class JiraSyncUtil {
     }
 
 
+    public static String getCustomFieldsStr(Issue issue) {
+        List<Map<String,String>> customFieldMapList = issue.getCustomFieldList();
+        StringBuilder customFieldBuilder = new StringBuilder();
+        for(Map<String,String> customMap : customFieldMapList){
+            Set<String> keySet = customMap.keySet();
+            for(String key:keySet){
+                customFieldBuilder.append(key + "->" + customMap.get(key) + "&");
+            }
+        }
+        return customFieldBuilder.toString();
+    }
 
+    public static String getCustomFieldFromIssue(Issue issue,String customFieldKey){
+        List<Map<String,String>> customFieldMapList = issue.getCustomFieldList();
+        String customFieldValue = "";
+        for(Map<String,String> customMap : customFieldMapList){
+            Set<String> keySet = customMap.keySet();
+            for(String key:keySet){
+                if(customFieldKey.equals(key)){
+                    customFieldValue = customMap.get(customFieldKey);
+                }
+                break;
+            }
 
+        }
+        return customFieldValue;
+    }
 
+    public static List<Map<String,String>> getCustomFieldListFromStr(String customeFieldsStr){
+        List<Map<String,String>> customFieldList = new ArrayList<Map<String, String>>();
+        Map<String,String> customMap = new HashMap<String, String>();
+        String[] customFieldArr = customeFieldsStr.split("&");
+        if(customFieldArr.length > 1){
+            for(String customMapper:customFieldArr){
+                String[] mapper = customMapper.split("->");
+                if(mapper.length > 1){
+                    customMap.put(mapper[0],mapper[1]);
+                    customFieldList.add(customMap);
+                }
+            }
+        }
+        return customFieldList;
+    }
 }

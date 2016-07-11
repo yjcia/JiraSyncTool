@@ -10,15 +10,15 @@ import java.util.LinkedList;
 /**
  * Created by YanJun on 2016/7/1.
  */
-public class DbConnectionPool {
+public class DbConnectionUtil {
 
     private final int INIT_COUNT = 5;
     private final int MAX_COUNT = 30;
     private int count = 0;
     private LinkedList<Connection> connectionPoolList;
-    private static final DbConnectionPool connectionPool = new DbConnectionPool();
+    private static final DbConnectionUtil connectionPool = new DbConnectionUtil();
     private final Object wait = new Object();
-    private DbConnectionPool(){
+    private DbConnectionUtil(){
         connectionPoolList = new LinkedList<Connection>();
         try{
             Class.forName(PropertyUtil.getPropValue(JiraAttribute.DRIVER));
@@ -45,7 +45,7 @@ public class DbConnectionPool {
         }
         return null;
     }
-    public static DbConnectionPool getInstance() {
+    public static DbConnectionUtil getInstance() {
         return connectionPool;
     }
     public Connection getConnection(){

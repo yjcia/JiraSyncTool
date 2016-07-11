@@ -35,6 +35,11 @@
             <artifactId>json</artifactId>
             <version>20160212</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.8</version>
+        </dependency>
     </dependencies>
     <build>
         <finalName>kewill-kff-jiratool</finalName>

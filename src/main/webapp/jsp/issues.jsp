@@ -81,7 +81,15 @@
                     valign: 'middle',
                     cellStyle:issueCellStyle
 
-                }, {
+                },{
+                    field: 'fixVersion',
+                    title: 'Fix Version',
+                    align: 'center',
+                    valign: 'middle',
+                    cellStyle:issueCellStyle
+
+                },
+                {
                     field: 'type',
                     title: 'Type',
                     align: 'center',
@@ -110,14 +118,20 @@
                     field: 'reporter',
                     title: 'Reporter',
                     align: 'center',
+                    valign: 'middle',
                     cellStyle:issueCellStyle
-                    //events: operateEvents,
-                    //formatter: operateFormatter
+
+                },{
+                    field: 'operate',
+                    title: 'Operate',
+                    align: 'center',
+                    valign: 'middle',
+                    events: operateEvents,
+                    formatter: operateFormatter
                 }
             ]
         });
-
-    })
+    });
 
     function rowStyle(row, index) {
         var classes = ['active', 'success', 'info', 'warning', 'danger'];
@@ -137,10 +151,20 @@
         }
     }
     function issueCellStyle(value, row, index, field) {
-
         return {
             css: {"font-size": "10px"}
         };
-    }</script>
+    }
+    function operateFormatter(value, row, index) {
+        return [
+            '<span id="downloadTar" class="glyphicon glyphicon-save-file" aria-hidden="true" style="cursor: hand"></span>'
+        ].join('');
+    }
+    window.operateEvents = {
+        'click #downloadTar': function (e, value, row, index) {
+            window.open("/jira/issue.action?method=downloadTar&id="+row.keyId);
+        }
+    };
+</script>
 </body>
 </html>

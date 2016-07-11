@@ -15,6 +15,9 @@
                 <li>
                     <a href="/jira/issue.action?method=show"><span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;Issues</a>
                 </li>
+                <li>
+                    <a href="/jira/report.action?method=show"><span class="glyphicon glyphicon-signal"></span>&nbsp;&nbsp;Report</a>
+                </li>
             </ul>
         </div>
     </div>

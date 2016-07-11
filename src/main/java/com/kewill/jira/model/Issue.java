@@ -2,6 +2,7 @@ package com.kewill.jira.model;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by YanJun on 2016/6/30.
@@ -25,9 +26,19 @@ public class Issue {
     private Date resolved;
     private String fixVersion;
     private List<String> componentList;
+    private List<Map<String,String>> customFieldList;
     private int votes;
     private int watches;
     private String priority;
+
+
+    public List<Map<String, String>> getCustomFieldList() {
+        return customFieldList;
+    }
+
+    public void setCustomFieldList(List<Map<String, String>> customFieldList) {
+        this.customFieldList = customFieldList;
+    }
 
     public Date getCreated() {
         return created;
@@ -204,10 +215,10 @@ public class Issue {
                 "title='" + title + '\'' +
                 ", link='" + link + '\'' +
                 ", projectId=" + projectId +
-                ", projectValue='" + project + '\'' +
+                ", project='" + project + '\'' +
                 ", description='" + description + '\'' +
                 ", keyId=" + keyId +
-                ", keyValue='" + key + '\'' +
+                ", key='" + key + '\'' +
                 ", summary='" + summary + '\'' +
                 ", type='" + type + '\'' +
                 ", status='" + status + '\'' +
@@ -219,6 +230,7 @@ public class Issue {
                 ", resolved=" + resolved +
                 ", fixVersion='" + fixVersion + '\'' +
                 ", componentList=" + componentList +
+                ", customFieldList=" + customFieldList +
                 ", votes=" + votes +
                 ", watches=" + watches +
                 ", priority='" + priority + '\'' +

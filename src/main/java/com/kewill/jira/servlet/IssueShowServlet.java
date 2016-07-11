@@ -45,6 +45,7 @@ public class IssueShowServlet extends IssueBaseServlet {
                 jsonObject.put("resolution",issue.getResolution());
                 jsonObject.put("assignee",issue.getAssignee());
                 jsonObject.put("reporter",issue.getReporter());
+                jsonObject.put("fixVersion",issue.getFixVersion());
                 jsonArray.put(jsonObject);
             }
             System.out.println(jsonArray);
