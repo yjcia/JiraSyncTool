@@ -24,7 +24,6 @@ public class ExcelUtil {
             switch (cell.getCellType()) {
                 case Cell.CELL_TYPE_BLANK:
                     cell.setCellValue(object.toString());
-//                    System.out.println("Blank type:("+row_index+","+column_index+")=>"+object.toString());
                     break;
                 case Cell.CELL_TYPE_BOOLEAN:
                     cell.setCellValue(Boolean.parseBoolean(object.toString()));
@@ -37,20 +36,13 @@ public class ExcelUtil {
                     break;
                 case Cell.CELL_TYPE_NUMERIC:
                     cell.setCellValue(Double.parseDouble(object.toString()));
-//                    System.out.println("Got numeric:("+row_index+","+column_index+")=>"+object.toString());
                     break;
                 case Cell.CELL_TYPE_STRING:
                     cell.setCellValue(new HSSFRichTextString(object.toString()));
-//                    System.out.println("Got string type:("+row_index+","+column_index+")=>"+object.toString());
                     break;
             }
         }
 
-//        String value = "";
-//        if (object != null) {
-//            value = object.toString();
-//        }
-//        sheet.getRow(row_index).getCell(column_index).setCellValue(value);
     }
 
     public static void copyRow(Sheet sheet, int sourceRowIndex, int destinationRowIndex) {

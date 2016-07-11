@@ -5,6 +5,8 @@ import com.kewill.jira.dao.IssueDaoImpl;
 import com.kewill.jira.model.Issue;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,16 +21,17 @@ import java.util.List;
  * Created by YanJun on 2016/7/4.
  */
 public class IssueShowServlet extends IssueBaseServlet {
+    private Logger issueShowLogger = LoggerFactory.getLogger(IssueShowServlet.class);
 
     @Override
     public void show(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("invoke IssueShowServlet.show()");
+        issueShowLogger.debug("invoke IssueShowServlet.show()");
         response.sendRedirect(request.getContextPath() + "/jsp/issues.jsp");
     }
 
     public void loadAll(HttpServletRequest request, HttpServletResponse response){
-        System.out.println("invoke IssueShowServlet.loadAll()");
+        issueShowLogger.debug("invoke IssueShowServlet.loadAll()");
         response.setCharacterEncoding("UTF-8");
         try {
             IIssueDao issueDao = new IssueDaoImpl();
@@ -48,7 +51,6 @@ public class IssueShowServlet extends IssueBaseServlet {
                 jsonObject.put("fixVersion",issue.getFixVersion());
                 jsonArray.put(jsonObject);
             }
-            System.out.println(jsonArray);
             out.write(jsonArray.toString());
         } catch (IOException e) {
             e.printStackTrace();

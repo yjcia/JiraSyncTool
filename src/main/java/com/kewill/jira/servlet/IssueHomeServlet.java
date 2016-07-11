@@ -1,5 +1,8 @@
 package com.kewill.jira.servlet;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -13,11 +16,11 @@ import java.io.IOException;
  */
 public class IssueHomeServlet extends IssueBaseServlet {
 
+    private Logger issueHomeLog = LoggerFactory.getLogger(IssueHomeServlet.class);
     public void show(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("invoke IssueHomeServlet.show()");
-        //RequestDispatcher dispatcher=request.getRequestDispatcher("/WEB-INF/jsp/home.jsp");
-        //dispatcher.forward(request, response);
+
+        issueHomeLog.debug("invoke IssueHomeServlet.show()");
         response.sendRedirect(request.getContextPath() + "/jsp/home.jsp");
     }
 }

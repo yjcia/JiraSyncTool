@@ -29,8 +29,8 @@ public class TARGenerator {
 
     private final Issue issue;
 
-    public static final String TEMPLATES_DIR = "J:\\Code\\JiraSyncTool\\src\\main\\resources\\";
-    public static final String TAR_DIR = "J:\\Code\\JiraSyncTool\\tar";
+    public static final String TEMPLATES_DIR = "/";
+    public static final String TAR_DIR = "../tar";
     private final int TAR_SHEET_INDEX = 0;
     private final int COMMIT_LIST_SHEET_INDEX = 1;
 
@@ -88,7 +88,7 @@ public class TARGenerator {
             tar.delete();
         }
 
-        InputStream templateIn = new FileInputStream(tarTemplate);
+        InputStream templateIn = TARGenerator.class.getClassLoader().getResourceAsStream("TAR_Template.xls");
         OutputStream tarOut = new FileOutputStream(tar);
 
         Workbook tarWB = new HSSFWorkbook(templateIn);

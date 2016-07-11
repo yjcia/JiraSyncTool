@@ -2,6 +2,8 @@ package com.kewill.jira.servlet;
 
 import com.kewill.jira.model.ActionDefinition;
 import com.kewill.jira.util.JiraSyncUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,6 +22,7 @@ import java.util.List;
 public class IssueBaseServlet extends HttpServlet {
 
     private static List<ActionDefinition> actionMappingList;
+    private Logger issueBaseServlet = LoggerFactory.getLogger(IssueBaseServlet.class);
 
     static{
         initActionMapping(actionMappingList);
@@ -50,13 +53,13 @@ public class IssueBaseServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("Invoke BaseServlet Do Post ...");
+        issueBaseServlet.debug("Invoke BaseServlet Do Post ...");
         String requestPath = getPathInfo(request);
         String requestType = request.getMethod();
         if(requestPath.contains("action")) {
             String actionName = getActionName(requestPath);
             String methodName = getMethodName(request);
-            System.out.println("action --> " + actionName + ";" + " method --> " + methodName);
+            issueBaseServlet.debug("action --> " + actionName + ";" + " method --> " + methodName);
             try {
                 ActionDefinition actionDefinition = getActionDefinitionByActionName(actionName,methodName,requestType);
                 Class clazz = Class.forName(actionDefinition.getActionClassName());
